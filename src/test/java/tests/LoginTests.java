@@ -1,13 +1,16 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -16,24 +19,31 @@ public class LoginTests {
 
     WebDriver driver;
 
-    @BeforeClass
-    public void setUp(){
+    @BeforeMethod
+    public void setUp() {
 
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        ((ChromeDriver)driver).manage();
+        ((ChromeDriver) driver).manage();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
     }
+
     @Test
-    public void loginTest1(){
+    public void loginTest1() {
 
         driver.get("http://secure.smartbearsoftware.com/samples/TestComplete12/WebOrders/Login.aspx");
         driver.findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
         driver.findElement(By.id("ctl00_MainContent_password")).sendKeys("test" + Keys.ENTER);
-        Assert.assertEquals(driver.getTitle(),"Web Orders");
+        Assert.assertEquals(driver.getTitle(), "Web Orders");
 
+
+    }
+
+    @AfterMethod
+    public void cleanUp() {
+        driver.close();
 
     }
 }
