@@ -37,7 +37,7 @@ public class LoginTests {
         driver.findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
         driver.findElement(By.id("ctl00_MainContent_password")).sendKeys("test" + Keys.ENTER);
         String title = driver.getTitle();
-        Assert.assertEquals(driver.getTitle(), "Web Orders");
+        Assert.assertEquals(title, "Web Orders");
     }
 
     @Test
